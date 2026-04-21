@@ -47,7 +47,7 @@ export const problemPoints: ProblemPoint[] = [
   {
     n: "ii.",
     heading: "First impressions happen in silence.",
-    body: "People form an opinion about a business from its website in under a second. That opinion is sticky. It arrives before any copy is read.",
+    body: "A visitor decides how they feel about your business in under a second. Before they’ve read a word. And the feeling sticks.",
   },
   {
     n: "iii.",
@@ -68,12 +68,12 @@ export const outcomes: Outcome[] = [
   {
     idx: "i.",
     heading: "The site stops embarrassing you in front of referrals.",
-    body: "You stop hesitating before you send someone the link. You stop saying “ignore the website, it’s old.” The link does its job on its own.",
+    body: "You stop apologising before you send someone the link. It does its job on its own.",
   },
   {
     idx: "ii.",
     heading: "New clients take you seriously on the first visit.",
-    body: "The people who find you are the ones most likely to pick up the phone. Enquiries arrive already believing your work is good.",
+    body: "The people who find you already believe your work is good. Enquiries arrive warm.",
   },
   {
     idx: "iii.",
@@ -158,7 +158,7 @@ export const steps: Step[] = [
     number: "01",
     heading: "Send us the URL you’re tired of looking at.",
     time: "Day 1 · 20-minute call",
-    body: "We ask ten questions about your clients and your work. You don’t prepare anything. If you have a logo, send it. If not, we’ll handle that too.",
+    body: "We ask ten questions about your clients and your work. You don’t prepare anything. Logo or no logo — we’ve got it.",
   },
   {
     number: "02",
@@ -170,7 +170,7 @@ export const steps: Step[] = [
     number: "03",
     heading: "Approve it, or walk away owing nothing.",
     time: "Day 7 · Your call",
-    body: "You see the finished site on your own domain, in a staging link. If it feels right, you pay once and we push it live. If it doesn’t, we part on good terms.",
+    body: "You see the finished site on a staging link. If it feels right, you pay once and we go live. If it doesn’t, we part on good terms.",
   },
 ];
 
@@ -256,6 +256,6 @@ export const reassurances: Reassurance[] = [
   {
     k: "IV.",
     heading: "Quiet by design.",
-    body: "No newsletter sign-ups. No upsell emails. We build the site, hand it over, and disappear until you need us again.",
+    body: "No newsletter sign-ups. No upsell emails. We build it, hand it over, and disappear.",
   },
 ];

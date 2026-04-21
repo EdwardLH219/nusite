@@ -10,8 +10,7 @@ export function Reassure() {
         className="body-copy"
         style={{ marginTop: 18, maxWidth: "56ch" }}
       >
-        Four things we will not move on, written here so you can hold us to
-        them.
+        Four things we won’t move on. Hold us to them.
       </p>
 
       <div className="grid" style={{ marginTop: 40 }}>

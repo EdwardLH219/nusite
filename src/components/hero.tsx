@@ -47,9 +47,8 @@ export function Hero() {
         </motion.h1>
 
         <motion.p variants={fadeUp} className="lede sub">
-          You already run the business. We build the website that finally looks
-          like it. Send us the URL you’re not proud of — we’ll quietly build
-          the replacement and show it to you, free, before you decide anything.
+          You run the business. We build the website that finally looks like
+          it. Send us the URL — we’ll show you the replacement, free.
         </motion.p>
 
         <motion.div variants={fadeUp} className="cta-row">
