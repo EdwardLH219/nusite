@@ -17,8 +17,8 @@ export default function Home() {
       <Section id="problem" number="02 / 08" name="Problem" className="problem">
         <p className="lead">
           Your website is the first thing a new client sees.{" "}
-          <b>Right now, it’s working against you</b> — and the people it’s
-          losing you will never tell you they left.
+          <b>Right now, it’s working against you</b>, and the people it’s
+          losing will never tell you they left.
         </p>
         <div className="problem-points">
           {problemPoints.map((p) => (
