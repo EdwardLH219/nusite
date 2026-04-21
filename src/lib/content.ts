@@ -24,8 +24,8 @@ export interface HeroStat {
 }
 
 export const heroStats: HeroStat[] = [
-  { n: "7 days", l: "From paid brief to live site. Usually fewer." },
-  { n: "£0", l: "To see the preview. If it doesn’t feel right, you walk." },
+  { n: "24 hours", l: "From paid brief to live site." },
+  { n: "$0", l: "To see the preview. If it doesn’t feel right, you walk." },
   { n: "100%", l: "You own the code, the copy, the domain. All of it." },
   { n: "One", l: "Phone call. We do the rest while you run the business." },
 ];
@@ -68,7 +68,7 @@ export const outcomes: Outcome[] = [
   {
     idx: "i.",
     heading: "The site stops embarrassing you in front of referrals.",
-    body: "You stop apologising before you send someone the link. It does its job on its own.",
+    body: "You stop apologizing before you send someone the link. It does its job on its own.",
   },
   {
     idx: "ii.",
@@ -78,7 +78,7 @@ export const outcomes: Outcome[] = [
   {
     idx: "iii.",
     heading: "You stop paying a web person who doesn’t return calls.",
-    body: "No more waiting a fortnight for a phone-number change. You get an editor you can use, and a studio that answers.",
+    body: "No more waiting two weeks for a phone-number change. You get an editor you can use, and a studio that answers.",
   },
   {
     idx: "iv.",
@@ -110,37 +110,43 @@ export const proofCases: ProofCase[] = [
     id: "medical",
     tab: "Medical",
     name: "Meridian Family Practice",
-    loc: "Richmond, London · 4 partners · est. 2004",
+    loc: "Upper East Side, NY · 4 partners · est. 2004",
     delta_n: "+38%",
     delta_l: "enquiries in first 30 days",
-    url: "meridianfamily.co.uk",
-    turnaround: "6 days",
+    url: "meridianfamily.com",
+    turnaround: "18 hours",
     moved: "Credibility in the first scroll",
     said: "“It finally looks like us.”",
+    beforeImage: "/images/showcase/medical-practice/before.png",
+    afterImage: "/images/showcase/medical-practice/after.png",
   },
   {
     id: "legal",
     tab: "Law firm",
     name: "Ashford & Wren",
-    loc: "Inns of Court · Commercial litigation · est. 1991",
+    loc: "Midtown Manhattan · Commercial litigation · est. 1991",
     delta_n: "+52%",
     delta_l: "qualified leads quarter-on-quarter",
-    url: "ashfordwren.co.uk",
-    turnaround: "8 days",
+    url: "ashfordwren.com",
+    turnaround: "22 hours",
     moved: "Seniority legible at a glance",
     said: "“Clients arrive already decided.”",
+    beforeImage: "/images/showcase/law-firm/before.png",
+    afterImage: "/images/showcase/law-firm/after.png",
   },
   {
     id: "studio",
     tab: "Studio",
     name: "Hollingworth Studio",
-    loc: "Margate · Independent architecture practice",
+    loc: "Brooklyn, NY · Independent architecture practice",
     delta_n: "+2.1×",
     delta_l: "project enquiries year-on-year",
     url: "hollingworth.studio",
-    turnaround: "5 days",
+    turnaround: "14 hours",
     moved: "Portfolio finally did the talking",
     said: "“We stopped dreading the link.”",
+    beforeImage: "/images/showcase/consulting-firm/before.png",
+    afterImage: "/images/showcase/consulting-firm/after.png",
   },
 ];
 
@@ -157,19 +163,19 @@ export const steps: Step[] = [
   {
     number: "01",
     heading: "Send us the URL you’re tired of looking at.",
-    time: "Day 1 · 20-minute call",
+    time: "Hour 0 · 20-minute call",
     body: "We ask ten questions about your clients and your work. You don’t prepare anything. Logo or no logo — we’ve got it.",
   },
   {
     number: "02",
     heading: "We build the replacement. Quietly.",
-    time: "Days 2–6 · No back-and-forth",
+    time: "Hours 1–20 · No back-and-forth",
     body: "No Slack channel. No Figma link. No status updates. You run your business; we build the site. When it’s ready, we send one link.",
   },
   {
     number: "03",
     heading: "Approve it, or walk away owing nothing.",
-    time: "Day 7 · Your call",
+    time: "Hour 24 · Your call",
     body: "You see the finished site on a staging link. If it feels right, you pay once and we go live. If it doesn’t, we part on good terms.",
   },
 ];
@@ -190,11 +196,11 @@ export const compareOptions: CompareOption[] = [
   {
     cap: "Option A",
     heading: "Do nothing",
-    amt: "£0",
+    amt: "$0",
     term: "/ upfront",
     bullets: [
       "Current site keeps losing referrals, quietly.",
-      "You keep apologising before you send the link.",
+      "You keep apologizing before you send the link.",
       "The cost shows up as enquiries that never arrive.",
       "No invoice — the bill is paid in missed clients.",
     ],
@@ -203,7 +209,7 @@ export const compareOptions: CompareOption[] = [
   {
     cap: "Option B",
     heading: "Hire a web agency",
-    amt: "£8,000 – £25,000",
+    amt: "$8,000 – $25,000",
     term: "+ retainer",
     bullets: [
       "Six weeks of kick-off calls and mood boards.",
@@ -216,7 +222,7 @@ export const compareOptions: CompareOption[] = [
   {
     cap: "Option C · Recommended",
     heading: "NuSite",
-    amt: "£2,400",
+    amt: "$299",
     term: "/ flat, one-time",
     bullets: [
       "Free preview. You see the site before you pay.",
@@ -241,7 +247,7 @@ export const reassurances: Reassurance[] = [
   {
     k: "I.",
     heading: "You approve before you pay.",
-    body: "No deposit. No retainer. You see the finished site on your domain, in private, before a single pound changes hands.",
+    body: "No deposit. No retainer. You see the finished site on your domain, in private, before a single dollar changes hands.",
   },
   {
     k: "II.",

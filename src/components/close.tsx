@@ -18,7 +18,7 @@ export function Close() {
           <h2>
             Send us your URL.
             <br />
-            See the replacement in seven days.
+            See the replacement in 24 hours.
           </h2>
           <p className="lede">
             If the preview is good, we go live. If it’s not, you walk away{" "}
@@ -32,13 +32,13 @@ export function Close() {
             >
               Get my free preview <span className="arr">→</span>
             </button>
-            <a href="tel:+442079460000" className="btn btn-secondary">
-              Or call us — 020 7946 0000
+            <a href="tel:+12125550173" className="btn btn-secondary">
+              Or call us — (212) 555-0173
             </a>
           </div>
           <div className="mini">
-            London · United Kingdom · Mon–Fri, 09:00–18:00 GMT · Replies
-            within one working day.
+            New York · United States · Mon–Fri, 09:00–18:00 ET · Replies
+            within one business day.
           </div>
         </div>
       </div>

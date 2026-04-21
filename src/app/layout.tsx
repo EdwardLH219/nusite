@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   creator: "NuSite",
   openGraph: {
     type: "website",
-    locale: "en_GB",
+    locale: "en_US",
     url: "https://nusite.com",
     siteName: "NuSite",
     title: "NuSite — Your Business Deserves a Better First Impression",

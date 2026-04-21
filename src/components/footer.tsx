@@ -17,8 +17,8 @@ export function Footer() {
           <a href="mailto:studio@nusite.co">studio@nusite.co</a>
         </nav>
         <div className="legal">
-          <span>&copy; {year} NuSite Studio Ltd.</span>
-          <span>Registered in England · 14827361</span>
+          <span>&copy; {year} NuSite Studio Inc.</span>
+          <span>New York, NY · United States</span>
         </div>
       </div>
     </footer>

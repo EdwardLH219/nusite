@@ -44,7 +44,7 @@ export function Header() {
         </div>
 
         <div className="hdr-cta">
-          <span className="loc">London · UK</span>
+          <span className="loc">New York · US</span>
           <button
             type="button"
             onClick={open}
