@@ -1,41 +1,59 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Container } from "./container";
-import { PreviewTrigger } from "./preview-trigger";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { usePreviewModal } from "./preview-modal";
+import { images } from "@/lib/content";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 10);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
+  const { open } = usePreviewModal();
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ease-out",
-        scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-xs"
-          : "bg-transparent border-b border-transparent"
-      )}
-    >
-      <Container>
-        <nav aria-label="Main" className="flex h-16 md:h-[4.5rem] items-center justify-between">
-          <a
-            href="/"
-            className="text-[1.125rem] font-semibold tracking-[-0.02em] text-foreground"
+    <header className="hdr">
+      <div className="hdr-inner">
+        <div className="gutter">
+          <span
+            className="mono"
+            style={{
+              color: "var(--caption)",
+              fontSize: 11,
+              letterSpacing: "0.08em",
+            }}
           >
-            NuSite
-          </a>
+            NU · 01
+          </span>
+        </div>
 
-          <PreviewTrigger size="sm">Get My Free Preview</PreviewTrigger>
-        </nav>
-      </Container>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "clamp(16px, 3vw, 40px)",
+          }}
+        >
+          <Link href="/" className="brand" aria-label="NuSite home">
+            <Image src={images.logoMark} alt="" width={22} height={22} priority />
+            <span>NuSite</span>
+          </Link>
+          <nav aria-label="Main">
+            <a href="#work">Work</a>
+            <a href="#process">Process</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#reassure">Studio</a>
+          </nav>
+        </div>
+
+        <div className="hdr-cta">
+          <span className="loc">London · UK</span>
+          <button
+            type="button"
+            onClick={open}
+            className="btn btn-primary btn-sm"
+          >
+            Get my free preview <span className="arr">→</span>
+          </button>
+        </div>
+      </div>
     </header>
   );
 }

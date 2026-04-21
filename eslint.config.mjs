@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Design export from Claude Design — not part of the app build.
+    "NuSite Frontend MVP/**",
   ]),
 ]);
 

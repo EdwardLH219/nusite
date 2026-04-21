@@ -81,7 +81,6 @@ export async function submitPreviewRequest(
 ): Promise<{ success: boolean }> {
   await new Promise((resolve) => setTimeout(resolve, 1200));
 
-  // eslint-disable-next-line no-console
   console.log("[NuSite] Preview request submitted:", data);
 
   return { success: true };

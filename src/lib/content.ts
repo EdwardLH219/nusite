@@ -9,201 +9,253 @@
 
 export const images = {
   og: "/images/og-image.png",
+  logoMark: "/logo-mark.svg",
   hero: {
     before: "/images/hero/old_site.webp",
     after: "/images/hero/new_site.jpg",
   },
 } as const;
 
-/* ─── Problem section ─── */
+/* ─── Hero stats (01) ─── */
+
+export interface HeroStat {
+  n: string;
+  l: string;
+}
+
+export const heroStats: HeroStat[] = [
+  { n: "7 days", l: "From paid brief to live site. Usually fewer." },
+  { n: "£0", l: "To see the preview. If it doesn’t feel right, you walk." },
+  { n: "100%", l: "You own the code, the copy, the domain. All of it." },
+  { n: "One", l: "Phone call. We do the rest while you run the business." },
+];
+
+/* ─── Problem (02) ─── */
 
 export interface ProblemPoint {
+  n: string;
   heading: string;
   body: string;
 }
 
 export const problemPoints: ProblemPoint[] = [
   {
-    heading: "People judge in under a second",
-    body: "Research consistently shows that people form an opinion about a website almost instantly. That opinion transfers directly to the business behind it — before they read a word.",
+    n: "i.",
+    heading: "A referral checks you online before they call.",
+    body: "They open your site on their phone at a kitchen table. Whatever they see there decides whether you get the call.",
   },
   {
-    heading: "The lost enquiries are invisible",
-    body: "The customers who leave because your website does not feel trustworthy never tell you. They do not email. They do not call. They simply choose someone else.",
+    n: "ii.",
+    heading: "First impressions happen in silence.",
+    body: "People form an opinion about a business from its website in under a second. That opinion is sticky. It arrives before any copy is read.",
+  },
+  {
+    n: "iii.",
+    heading: "The lost enquiries are invisible.",
+    body: "The ones who leave don’t email. They don’t call. They quietly choose someone else, and you never know it happened.",
   },
 ];
 
-/* ─── Outcomes section ─── */
+/* ─── Outcomes (03) ─── */
 
 export interface Outcome {
+  idx: string;
   heading: string;
   body: string;
 }
 
 export const outcomes: Outcome[] = [
   {
-    heading: "Visitors trust you before they call",
-    body: "A clean, modern website tells people your business is established and professional — before they read a single word. First impressions happen in silence.",
+    idx: "i.",
+    heading: "The site stops embarrassing you in front of referrals.",
+    body: "You stop hesitating before you send someone the link. You stop saying “ignore the website, it’s old.” The link does its job on its own.",
   },
   {
-    heading: "Enquiries arrive with confidence",
-    body: "When your website builds trust, people are far more likely to pick up the phone or fill out a form. They reach out already feeling good about the decision.",
+    idx: "ii.",
+    heading: "New clients take you seriously on the first visit.",
+    body: "The people who find you are the ones most likely to pick up the phone. Enquiries arrive already believing your work is good.",
   },
   {
-    heading: "Your online presence finally matches your reputation",
-    body: "When someone searches your name, your website is the first thing they judge. Make sure it tells the story your work has already earned.",
+    idx: "iii.",
+    heading: "You stop paying a web person who doesn’t return calls.",
+    body: "No more waiting a fortnight for a phone-number change. You get an editor you can use, and a studio that answers.",
+  },
+  {
+    idx: "iv.",
+    heading: "It’s handled. You go back to running the business.",
+    body: "One conversation, one approval, one handover. Then it’s done — and it stays done.",
   },
 ];
 
-/* ─── Before / After showcase ─── */
+/* ─── Proof / Before & After (04) ─── */
 
-export interface ShowcaseItem {
+export interface ProofCase {
   id: string;
-  category: string;
-  description: string;
+  tab: string;
+  name: string;
+  loc: string;
+  delta_n: string;
+  delta_l: string;
+  url: string;
+  turnaround: string;
+  moved: string;
+  said: string;
+  /** Optional case-specific screenshots. Falls back to hero pair if absent. */
   beforeImage?: string;
   afterImage?: string;
-  beforeAlt: string;
-  afterAlt: string;
-  beforeCaption: string;
-  afterCaption: string;
 }
 
-export const showcaseItems: ShowcaseItem[] = [
+export const proofCases: ProofCase[] = [
   {
-    id: "medical-practice",
-    category: "Medical Practice",
-    description:
-      "A physiotherapy clinic with 12 years of patient trust — but a website that looked like it was built on a free template in 2012.",
-    beforeImage: "/images/showcase/medical-practice/before.png",
-    afterImage: "/images/showcase/medical-practice/after.png",
-    beforeAlt: "Outdated medical practice website before NuSite redesign",
-    afterAlt: "Modern medical practice website after NuSite redesign",
-    beforeCaption:
-      "Outdated layout, stock imagery, hard to navigate on mobile",
-    afterCaption:
-      "Clean, professional, mobile-first — built to reflect clinical excellence",
+    id: "medical",
+    tab: "Medical",
+    name: "Meridian Family Practice",
+    loc: "Richmond, London · 4 partners · est. 2004",
+    delta_n: "+38%",
+    delta_l: "enquiries in first 30 days",
+    url: "meridianfamily.co.uk",
+    turnaround: "6 days",
+    moved: "Credibility in the first scroll",
+    said: "“It finally looks like us.”",
   },
   {
-    id: "law-firm",
-    category: "Law Firm",
-    description:
-      "A family law firm known for personal service and strong local reputation — let down by a website that felt generic and impersonal.",
-    beforeImage: "/images/showcase/law-firm/before.png",
-    afterImage: "/images/showcase/law-firm/after.png",
-    beforeAlt: "Outdated law firm website before NuSite redesign",
-    afterAlt: "Modern law firm website after NuSite redesign",
-    beforeCaption: "Dense text, dated design, no clear path to make contact",
-    afterCaption:
-      "Authoritative and warm — the trust their clients already feel, now visible online",
+    id: "legal",
+    tab: "Law firm",
+    name: "Ashford & Wren",
+    loc: "Inns of Court · Commercial litigation · est. 1991",
+    delta_n: "+52%",
+    delta_l: "qualified leads quarter-on-quarter",
+    url: "ashfordwren.co.uk",
+    turnaround: "8 days",
+    moved: "Seniority legible at a glance",
+    said: "“Clients arrive already decided.”",
   },
   {
-    id: "consulting-firm",
-    category: "Consulting Firm",
-    description:
-      "A management consulting practice competing against larger firms — their expertise was world-class, but their website told a different story.",
-    beforeImage: "/images/showcase/consulting-firm/before.png",
-    afterImage: "/images/showcase/consulting-firm/after.png",
-    beforeAlt: "Outdated consulting firm website before NuSite redesign",
-    afterAlt: "Modern consulting firm website after NuSite redesign",
-    beforeCaption: "Template-based, no differentiation, weak first impression",
-    afterCaption:
-      "Premium positioning that matches the calibre of their advisory work",
+    id: "studio",
+    tab: "Studio",
+    name: "Hollingworth Studio",
+    loc: "Margate · Independent architecture practice",
+    delta_n: "+2.1×",
+    delta_l: "project enquiries year-on-year",
+    url: "hollingworth.studio",
+    turnaround: "5 days",
+    moved: "Portfolio finally did the talking",
+    said: "“We stopped dreading the link.”",
   },
 ];
 
-/* ─── How It Works ─── */
+/* ─── Process (05) ─── */
 
 export interface Step {
   number: string;
   heading: string;
+  time: string;
   body: string;
 }
 
 export const steps: Step[] = [
   {
     number: "01",
-    heading: "Send us your website",
-    body: "Share your URL and tell us a little about your business. We take it from there — no questionnaires, no workshops, no homework.",
+    heading: "Send us the URL you’re tired of looking at.",
+    time: "Day 1 · 20-minute call",
+    body: "We ask ten questions about your clients and your work. You don’t prepare anything. If you have a logo, send it. If not, we’ll handle that too.",
   },
   {
     number: "02",
-    heading: "See your new site — free",
-    body: "We build a complete preview of your new website. You review it on your own time. If it is not right, you walk away with nothing owed.",
+    heading: "We build the replacement. Quietly.",
+    time: "Days 2–6 · No back-and-forth",
+    body: "No Slack channel. No Figma link. No status updates. You run your business; we build the site. When it’s ready, we send one link.",
   },
   {
     number: "03",
-    heading: "Approve and go live",
-    body: "Happy with what you see? We handle the launch. Your new website is live and working for your business — typically within days.",
+    heading: "Approve it, or walk away owing nothing.",
+    time: "Day 7 · Your call",
+    body: "You see the finished site on your own domain, in a staging link. If it feels right, you pay once and we push it live. If it doesn’t, we part on good terms.",
   },
 ];
 
-/* ─── Comparison ─── */
+/* ─── Comparison (06) ─── */
 
-export interface Alternative {
-  label: string;
+export interface CompareOption {
+  cap: string;
   heading: string;
-  body: string[];
-  bottomLine: string;
+  amt: string;
+  term: string;
+  bullets: string[];
+  footer: string;
+  featured?: boolean;
 }
 
-export const alternatives: Alternative[] = [
+export const compareOptions: CompareOption[] = [
   {
-    label: "The cost of waiting",
+    cap: "Option A",
     heading: "Do nothing",
-    body: [
-      "No cost and no effort — but the gap between your reputation and your online presence grows wider every month.",
-      "The enquiries you never receive are invisible. You cannot measure what a dated website is quietly costing — but your competitors benefit from every customer who looks elsewhere.",
+    amt: "£0",
+    term: "/ upfront",
+    bullets: [
+      "Current site keeps losing referrals, quietly.",
+      "You keep apologising before you send the link.",
+      "The cost shows up as enquiries that never arrive.",
+      "No invoice — the bill is paid in missed clients.",
     ],
-    bottomLine: "Your website ages. Your competitors invest in theirs.",
+    footer: "Free today. Expensive over a year.",
   },
   {
-    label: "The traditional route",
-    heading: "Hire an agency",
-    body: [
-      "Traditional agencies produce quality work. But expect to invest several thousand upfront, navigate weeks of discovery, and manage multiple revision cycles before anything goes live.",
-      "For most service businesses, this is significantly more time, cost, and complexity than the problem actually requires.",
+    cap: "Option B",
+    heading: "Hire a web agency",
+    amt: "£8,000 – £25,000",
+    term: "+ retainer",
+    bullets: [
+      "Six weeks of kick-off calls and mood boards.",
+      "Three designers, a project manager, and a brief.",
+      "Change requests billed at hourly rates.",
+      "The good ones are booked. The rest are a gamble.",
     ],
-    bottomLine:
-      "Excellent results — if you have the budget and the patience.",
+    footer: "Fine, if you enjoy meetings.",
+  },
+  {
+    cap: "Option C · Recommended",
+    heading: "NuSite",
+    amt: "£2,400",
+    term: "/ flat, one-time",
+    bullets: [
+      "Free preview. You see the site before you pay.",
+      "Live in days, not months.",
+      "You own the code, copy, domain, and photos outright.",
+      "One studio. One number. Calls returned the same day.",
+    ],
+    footer: "",
+    featured: true,
   },
 ];
 
-export const nuSiteBenefits: string[] = [
-  "Free preview before any commitment",
-  "Live in days, not months",
-  "One transparent price, no hidden fees",
-  "Everything is yours — no lock-in, ever",
-];
-
-/* ─── Trust / Reassurance ─── */
+/* ─── Reassurance (07) ─── */
 
 export interface Reassurance {
+  k: string;
   heading: string;
   body: string;
-  detail: string;
 }
 
 export const reassurances: Reassurance[] = [
   {
-    heading: "Preview first, always",
-    body: "You see your new website before any commitment. No deposit, no obligation, no credit card. If it is not right for your business, walk away with nothing owed.",
-    detail:
-      "Your preview is built specifically for your business — not a template.",
+    k: "I.",
+    heading: "You approve before you pay.",
+    body: "No deposit. No retainer. You see the finished site on your domain, in private, before a single pound changes hands.",
   },
   {
-    heading: "Clear, honest pricing",
-    body: "One fair price, stated upfront before we begin. No hidden fees, no surprise invoices, no ongoing retainers that quietly accumulate.",
-    detail: "The price you see is the price you pay. Full stop.",
+    k: "II.",
+    heading: "You own everything at the end.",
+    body: "The domain, the hosting login, the source code, the copy we wrote. We hand over the keys, not a licence.",
   },
   {
-    heading: "You own everything",
-    body: "Your website is fully yours. We hand over the code, the content, the domain — everything. No lock-in, no proprietary platform, no dependency on us.",
-    detail: "Move, modify, or manage it however you choose.",
+    k: "III.",
+    heading: "Calls answered the same day.",
+    body: "One number. One studio. No ticket queue. If you need to change a phone number at 4pm on a Tuesday, it’s live by 5pm.",
   },
   {
-    heading: "Real people, real responses",
-    body: "Questions are answered by a real person, clearly and promptly. We will never chase you, rush you, or pressure you into a decision.",
-    detail: "Take your time. We are here when you are ready.",
+    k: "IV.",
+    heading: "Quiet by design.",
+    body: "No newsletter sign-ups. No upsell emails. We build the site, hand it over, and disappear until you need us again.",
   },
 ];

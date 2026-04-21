@@ -66,10 +66,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-dvh flex flex-col">
+      <body>
         <PreviewModalProvider>
           <Header />
-          <div className="flex-1 flex flex-col">{children}</div>
+          {children}
           <Footer />
         </PreviewModalProvider>
       </body>
