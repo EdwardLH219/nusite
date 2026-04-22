@@ -9,14 +9,16 @@ export function Comparison() {
   return (
     <>
       <h2 className="h1" style={{ maxWidth: "18ch" }}>
-        Three paths. Only one is built around you.
+        Three paths. Only one is{" "}
+        <em className="un">built around you.</em>
       </h2>
       <p
         className="body-copy"
         style={{ marginTop: 18, maxWidth: "56ch" }}
       >
-        We’re not trying to beat the cheapest option. We’re trying to be the
-        one you don’t think about again.
+        We’re not trying to beat the cheapest option.
+        <br />
+        We’re trying to be the one you don’t think about again.
       </p>
 
       <div className="grid">
@@ -36,12 +38,12 @@ export function Comparison() {
                 <li key={b}>{b}</li>
               ))}
             </ul>
-            <div className="foot">
+            <div className="card-foot">
               {opt.featured ? (
                 <button
                   type="button"
                   onClick={open}
-                  className="btn btn-primary"
+                  className="btn btn-inverse"
                 >
                   Get my free preview <span className="arr">→</span>
                 </button>

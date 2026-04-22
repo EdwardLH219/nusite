@@ -4,7 +4,7 @@ export function Reassure() {
   return (
     <>
       <h2 className="h1" style={{ maxWidth: "18ch" }}>
-        Designed around your confidence.
+        Designed around your <em className="un">confidence.</em>
       </h2>
       <p
         className="body-copy"

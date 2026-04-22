@@ -16,7 +16,9 @@ export function Proof() {
       <div className="proof-head">
         <div>
           <h2 className="h1" style={{ maxWidth: "14ch" }}>
-            A before. And the after we built.
+            A before.
+            <br />
+            And the <em className="un">after</em>.
           </h2>
           <p className="body-copy" style={{ marginTop: 18 }}>
             Three recent clients. Same businesses. Same reputations. New first

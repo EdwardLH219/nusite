@@ -5,12 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ═══════════════════════════════════════════════
-   NuSite — Visual Design Foundation
+   NuSite — Visual Design Foundation (V2)
    Single design decision: the gutter grid.
-   A 2-column page layout where the left gutter holds a
-   numbered eyebrow and every section sits against a
-   vertical hairline that runs edge-to-edge down the page.
-   The hairline is the signature motif.
+   Section-level hue rotation re-tints --accent locally so every
+   accent-using element inside a section picks up that hue.
    ═══════════════════════════════════════════════ */
 
 @theme inline {
@@ -72,10 +70,16 @@
 
   --caption: #a1a1a6;
 
-  /* Accent — pastel blue; used like punctuation */
-  --accent: #7ea2c4;
-  --accent-ink: #4a7ba3;
+  /* Four-hue accent system — default is blue; each section
+     overrides --accent/--accent-ink via data-hue.                 */
+  --accent: #1da1f2;
+  --accent-ink: #0b7bbf;
   --accent-foreground: #ffffff;
+  --signal: #99cc00;
+  --signal-ink: #5c7a00;
+  --warm: #ff0000;
+  --warm-ink: #cc0000;
+  --sun: #ffcc00;
 
   --border: #e8e8e4;
   --border-subtle: #f0f0ec;
@@ -87,7 +91,7 @@
 
   /* Gutter-grid geometry */
   --page-max: 1360px;
-  --gutter-w: clamp(72px, 11vw, 160px);
+  --gutter-w: clamp(58px, 8.8vw, 128px);
   --pad-x: clamp(20px, 4vw, 56px);
   --rule: 1px solid var(--border);
   --rule-subtle: 1px solid var(--border-subtle);
@@ -96,12 +100,6 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-subtle: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* Optional accent themes (retained for future tuning) */
-.theme-blue { --accent: #7ea2c4; --accent-ink: #4a7ba3; }
-.theme-sage { --accent: #8fa88b; --accent-ink: #4e6b4a; }
-.theme-ochre { --accent: #c79a5b; --accent-ink: #84592a; }
-.theme-clay { --accent: #b47a5e; --accent-ink: #7a4a32; }
 
 /* ─── Base ─── */
 
@@ -215,11 +213,16 @@
     color: var(--muted-foreground);
   }
 
-  /* Accent underline — subtle highlight on a single word */
+  /* Accent underline — native text-decoration so it lives inside the
+     line box and doesn't collide with ascenders on the line below.
+     Takes --accent from whichever section it's in, via data-hue.        */
   em.un {
     font-style: normal;
-    box-shadow: inset 0 -0.08em 0 0 var(--accent);
-    padding-bottom: 0.04em;
+    text-decoration-line: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 0.09em;
+    text-underline-offset: 0.06em;
+    text-decoration-skip-ink: none;
   }
 }
 
@@ -308,6 +311,49 @@
   }
 }
 
+/* ═══════════════════════════════════════════════
+   Per-section hue rotation
+   Each section owns ONE of the four role-based accents.
+   Overriding --accent locally re-tints every accent-using
+   element inside: gutter ticks, tags, dots, underlines, links.
+   The black hairline stays the invariant structural grid.
+   ═══════════════════════════════════════════════ */
+
+.sec[data-hue="blue"]   { --accent: #1da1f2; --accent-ink: #0b7bbf; }
+.sec[data-hue="green"]  { --accent: #99cc00; --accent-ink: #5c7a00; }
+.sec[data-hue="red"]    { --accent: #ff0000; --accent-ink: #cc0000; }
+.sec[data-hue="yellow"] { --accent: #ffcc00; --accent-ink: #a67a00; }
+
+/* Number in the gutter picks up the hue */
+.sec[data-hue] > .gutter .eyebrow .num {
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
+/* Gutter tick becomes the hue (2px tall, 12px wide) */
+.sec[data-hue] > .gutter::after {
+  background: var(--accent);
+  height: 2px;
+  top: 13px;
+  width: 12px;
+}
+
+/* Thin hue-tinted rule under the section eyebrow name — chapter marker */
+.sec[data-hue] > .gutter .eyebrow .name {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 4px;
+}
+.sec[data-hue] > .gutter .eyebrow .name::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
 /* ─── Buttons ─── */
 
 @layer components {
@@ -319,6 +365,9 @@
     font-size: 15px;
     font-weight: 500;
     letter-spacing: -0.005em;
+    border: 0;
+    -webkit-appearance: none;
+    appearance: none;
     border-radius: var(--radius);
     transition:
       transform 200ms var(--ease-subtle),
@@ -338,20 +387,57 @@
   }
   .btn:hover .arr { transform: translateX(3px); }
 
+  /* Primary — black fill with a hue-coloured left stripe */
   .btn-primary {
     background: var(--foreground);
     color: var(--background);
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--shadow-xs), inset 3px 0 0 0 var(--accent);
+    padding-left: 25px;
   }
-  .btn-primary:hover { box-shadow: var(--shadow-sm); }
+  .btn-primary:hover {
+    box-shadow: var(--shadow-sm), inset 3px 0 0 0 var(--accent);
+  }
+  .btn-primary .arr {
+    color: var(--accent);
+    font-weight: 600;
+  }
 
+  /* Inverse — white fill with a hue-coloured left border. Used on the
+     featured pricing card (dark card) so the CTA pops light.            */
+  .btn-inverse {
+    background: #fff;
+    color: #0a0a0a;
+    width: 100%;
+    justify-content: center;
+    border-radius: var(--radius);
+    border-left: 3px solid var(--accent);
+    padding: 14px 22px;
+    box-shadow: none;
+  }
+  .btn-inverse:hover { box-shadow: var(--shadow-sm); }
+  .btn-inverse .arr {
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  /* Secondary — transparent outline; grows a hue stripe on hover */
   .btn-secondary {
     background: transparent;
     color: var(--foreground);
     border: 1px solid var(--border);
     padding: 13px 21px;
+    transition:
+      transform 200ms var(--ease-subtle),
+      border-color 200ms var(--ease-subtle),
+      box-shadow 200ms var(--ease-subtle),
+      padding 200ms var(--ease-subtle);
   }
-  .btn-secondary:hover { border-color: var(--foreground); }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    box-shadow: inset 3px 0 0 0 var(--accent);
+    padding-left: 24px;
+    padding-right: 20px;
+  }
 
   .btn-sm { padding: 9px 14px; font-size: 13px; }
 
@@ -363,9 +449,35 @@
     border-bottom: 1px solid var(--border);
     padding-bottom: 2px;
     font-size: 15px;
-    transition: border-color 200ms;
+    transition: border-color 200ms, color 200ms;
   }
-  .link-inline:hover { border-color: var(--foreground); }
+  .link-inline:hover { border-color: var(--accent); }
+  .link-inline span {
+    color: var(--accent);
+    transition: transform 200ms var(--ease-subtle);
+    display: inline-block;
+  }
+  .link-inline:hover span { transform: translateX(3px); }
+}
+
+/* ═══════════════════════════════════════════════
+   Brand mark — inline SVG used in header and footer
+   Black tile with "Nu" set in Geist, paper-coloured.
+   ═══════════════════════════════════════════════ */
+
+@layer components {
+  .brand-mark {
+    display: inline-block;
+    line-height: 0;
+    flex-shrink: 0;
+  }
+  .brand-mark svg { width: 100%; height: 100%; display: block; }
+  .brand-mark svg rect { fill: var(--foreground); }
+  .brand-mark svg text {
+    fill: var(--surface);
+    font-family: var(--font-sans);
+    font-weight: 500;
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -411,9 +523,9 @@
     gap: 10px;
     font-weight: 500;
     letter-spacing: -0.025em;
-    font-size: 16px;
+    font-size: 20px;
   }
-  .hdr .brand img { width: 22px; height: 22px; border-radius: 5px; }
+  .hdr .brand .brand-mark { width: 32px; height: 32px; }
 
   .hdr nav {
     display: flex;
@@ -449,18 +561,85 @@
     padding-bottom: clamp(56px, 7vw, 96px);
   }
 
+  /* Hero mock floats at the top-right of the text column so the headline
+     and body copy wrap around it. Smaller width lets more text fit per
+     line. Tilts around the X axis so the top edge recedes into the page
+     and the right edge of the mock rotates subtly toward the heading.   */
+  .hero-mock {
+    float: right;
+    width: clamp(300px, 32vw, 420px);
+    /* pushed down so the first headline line sits above it and the image
+       tucks under the text that follows, rather than aligning flush top */
+    margin: clamp(24px, 2.5vw, 44px) 0 clamp(20px, 2vw, 32px)
+      clamp(16px, 1.8vw, 28px);
+    position: relative;
+    perspective: 1200px;
+  }
+  .hero-mock::before {
+    content: "";
+    position: absolute;
+    inset: -6% -10% -4% -10%;
+    background: radial-gradient(
+      ellipse at 50% 55%,
+      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(36px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-image {
+    position: relative;
+    z-index: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--background);
+    transform: rotateY(-8deg);
+    transform-origin: 100% 50%;
+    transform-style: preserve-3d;
+    box-shadow:
+      0 30px 60px -15px rgba(20, 30, 50, 0.32),
+      0 12px 24px -6px rgba(20, 30, 50, 0.22),
+      0 0 0 1px rgba(20, 30, 50, 0.08);
+    transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: transform;
+  }
+  .hero-mock:hover .hero-image {
+    transform: rotateY(-6deg) translateY(-3px);
+  }
+  .hero-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-image,
+    .hero-mock:hover .hero-image {
+      transform: rotateY(-8deg);
+      transition: none;
+    }
+  }
+
+  /* On small viewports drop the float and stack above the text */
+  @media (max-width: 720px) {
+    .hero-mock {
+      float: none;
+      width: min(100%, 320px);
+      margin: 0 0 clamp(20px, 4vw, 32px);
+    }
+  }
+
   .hero .headline {
-    font-size: clamp(3rem, 6.5vw, 7rem);
-    line-height: 0.94;
-    letter-spacing: -0.05em;
+    font-size: clamp(2.25rem, 4.5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
     font-weight: 500;
-    text-wrap: balance;
-    max-width: 18ch;
+    text-wrap: pretty;
   }
 
   .hero .headline .soft { color: var(--muted-foreground); }
 
-  .hero .sub { margin-top: 28px; max-width: 48ch; }
+  .hero .sub { margin-top: 28px; }
 
   .hero .cta-row {
     display: flex;
@@ -485,9 +664,14 @@
     border-radius: 999px;
     background: var(--accent);
     display: inline-block;
+    flex-shrink: 0;
   }
+  /* Line break inside the promise text — hidden on desktop, shown on
+     mobile via the media query.                                         */
+  .promise-break { display: none; }
 
   .hero-strip {
+    clear: both;
     margin-top: clamp(48px, 6vw, 80px);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -624,6 +808,10 @@
   }
   .outcomes .row:last-child { border-bottom: var(--rule-subtle); }
   .outcomes .row h3 {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    column-gap: 12px;
+    align-items: start;
     font-size: clamp(1.5rem, 1.5vw + 0.6rem, 2rem);
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -637,15 +825,13 @@
     max-width: 42ch;
   }
   .outcomes .row .idx {
-    position: relative;
-    top: -2px;
     font-size: 12px;
     color: var(--caption);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.08em;
-    display: inline-block;
-    margin-right: 14px;
-    vertical-align: top;
+    font-weight: 500;
+    /* push down to align with the heading's cap-line */
+    padding-top: 0.55em;
   }
 
   /* Proof -------------------------------------------------- */
@@ -708,10 +894,7 @@
     color: var(--muted-foreground);
     font-variant-numeric: tabular-nums;
   }
-  .proof .caseline .delta b {
-    color: var(--foreground);
-    font-weight: 500;
-  }
+  .proof .caseline .delta b { font-weight: 500; }
 
   .proof .split {
     display: grid;
@@ -904,16 +1087,9 @@
     margin-top: 9px;
     flex-shrink: 0;
   }
-  .compare .card.featured ul li::before { background: var(--accent); }
-  .compare .card .foot {
+  .compare .card .card-foot {
     margin-top: auto;
     padding-top: 4px;
-  }
-  .compare .card.featured .btn-primary {
-    background: var(--background);
-    color: var(--foreground);
-    width: 100%;
-    justify-content: center;
   }
 
   /* Reassure ----------------------------------------------- */
@@ -1000,26 +1176,37 @@
     flex-direction: column;
     gap: 4px;
   }
-  .close .gutter .eyebrow .num { color: rgba(255, 255, 255, 0.35); }
+  .close .gutter .eyebrow .num { color: var(--sun); }
   .close .gutter .eyebrow .name { color: rgba(255, 255, 255, 0.9); }
   .close .gutter::after {
     content: "";
     position: absolute;
     right: -1px;
-    top: 14px;
-    width: 10px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.8);
+    top: 13px;
+    width: 12px;
+    height: 2px;
+    background: var(--sun);
   }
-  .close .sec-body { padding-left: clamp(12px, 2vw, 32px); }
+  .close .sec-body { padding-left: clamp(12px, 2vw, 32px); color: #fff; }
 
   .close h2 {
+    color: #fff;
     font-size: clamp(2.5rem, 5vw + 0.5rem, 5rem);
     letter-spacing: -0.045em;
     line-height: 0.98;
     font-weight: 500;
     max-width: 16ch;
     text-wrap: balance;
+  }
+
+  /* Yellow-underlined word inside the close headline */
+  .close h2 .sun {
+    font-style: normal;
+    text-decoration-line: underline;
+    text-decoration-color: var(--sun);
+    text-decoration-thickness: 0.09em;
+    text-underline-offset: 0.06em;
+    text-decoration-skip-ink: none;
   }
 
   .close .lede {
@@ -1030,8 +1217,11 @@
   .close .lede em {
     font-style: normal;
     color: #fff;
-    box-shadow: inset 0 -0.07em 0 0 var(--accent);
-    padding-bottom: 0.05em;
+    text-decoration-line: underline;
+    text-decoration-color: var(--sun);
+    text-decoration-thickness: 0.09em;
+    text-underline-offset: 0.06em;
+    text-decoration-skip-ink: none;
   }
 
   .close .cta-row {
@@ -1043,14 +1233,22 @@
   .close .btn-primary {
     background: var(--background);
     color: var(--foreground);
+    box-shadow: var(--shadow-xs), inset 3px 0 0 0 var(--sun);
   }
-  .close .btn-primary:hover { background: #fff; }
+  .close .btn-primary:hover {
+    background: #fff;
+    box-shadow: var(--shadow-sm), inset 3px 0 0 0 var(--sun);
+  }
+  .close .btn-primary .arr {
+    color: var(--sun);
+  }
   .close .btn-secondary {
     color: rgba(255, 255, 255, 0.9);
     border-color: rgba(255, 255, 255, 0.18);
   }
   .close .btn-secondary:hover {
-    border-color: rgba(255, 255, 255, 0.6);
+    border-color: var(--sun);
+    box-shadow: inset 3px 0 0 0 var(--sun);
     color: #fff;
   }
 
@@ -1119,6 +1317,68 @@
     flex-direction: column;
     gap: 4px;
   }
+
+  /* Footer signature — sits in the gutter, under the eyebrow */
+  .foot .gutter .foot-sig-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  .foot-sig-lockup .brand-mark { width: 22px; height: 22px; }
+  .foot-wordmark {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: var(--foreground);
+    user-select: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Strategic per-section color placement
+   (content-level accents, beyond the hue rotation)
+   ═══════════════════════════════════════════════ */
+
+/* 02 Problem — red roman numerals */
+.problem-points .pt .n {
+  color: var(--warm-ink);
+  font-weight: 500;
+}
+
+/* 03 Outcomes — green roman numerals */
+.outcomes .row .idx {
+  color: var(--signal-ink);
+  font-weight: 500;
+}
+
+/* 04 Proof — Before tag: warm red text + thin red border; After keeps hue (blue) */
+.proof .split .tag:not(.after) {
+  color: var(--warm-ink);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid color-mix(in oklab, var(--warm) 40%, transparent);
+}
+/* Delta stat — green, an approved improvement */
+.proof .caseline .delta b { color: var(--signal-ink); }
+
+/* 05 Process — step numbers pick up the section hue (green) */
+.process .step .n { color: var(--accent-ink); }
+
+/* 06 Pricing — row of coloured bullets */
+.compare .card:nth-child(1) ul li::before { background: var(--warm); }
+.compare .card:nth-child(2) ul li::before { background: var(--caption); }
+.compare .card.featured ul li::before { background: var(--signal); }
+/* Option A cost looks muted to reinforce "no upside" */
+.compare .card:nth-child(1) .cost .amt { color: var(--muted-foreground); }
+
+/* 07 Promises — roman numerals pick up section hue (blue) */
+.reassure .item .k {
+  color: var(--accent-ink);
+  font-weight: 500;
 }
 
 /* ─── Reduced Motion ─── */
@@ -1127,21 +1387,99 @@
   html { scroll-behavior: auto; }
 }
 
-/* ─── Responsive — mobile under 900px ─── */
+/* ─── Responsive — mobile under 900px ─────────────────────────────
+   The gutter grid collapses to a single column: section eyebrow
+   stacks above the body copy, vertical hairlines disappear (they
+   no longer align with anything meaningful), and every narrow-
+   column artifact (tiny gutter, overlapping labels) is removed. */
 
 @media (max-width: 900px) {
-  :root {
-    --gutter-w: 44px;
-    --pad-x: 20px;
+  :root { --pad-x: 20px; }
+
+  /* Hide every vertical hairline + tick — they depend on the grid */
+  .page::before,
+  .hdr-inner::before,
+  .foot-inner::before,
+  .close-inner::before,
+  .sec > .gutter::after,
+  .close .gutter::after {
+    display: none;
   }
-  .hdr-inner { height: 56px; }
+
+  /* Collapse section to a single stacked column */
+  .sec {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    padding: clamp(56px, 9vw, 96px) 0;
+  }
+  .sec > .gutter {
+    padding-top: 0;
+  }
+  .sec > .gutter .eyebrow {
+    flex-direction: row;
+    gap: 10px;
+    align-items: baseline;
+    white-space: normal;
+  }
+  .sec > .sec-body { padding-left: 0; }
+
+  /* Header — drop the NU · 01 marker, tighten to 2-col */
+  .hdr-inner {
+    grid-template-columns: 1fr auto;
+    height: 56px;
+  }
+  .hdr-inner > .gutter { display: none; }
   .hdr nav { display: none; }
   .hdr .hdr-cta .loc { display: none; }
+  .hdr .brand { font-size: 18px; }
+  .hdr .brand .brand-mark { width: 28px; height: 28px; }
+  .hdr .hdr-cta .btn { padding: 8px 12px; font-size: 12px; }
 
-  .sec > .sec-body { padding-left: 12px; }
+  /* Close — stack gutter above body, drop extra padding */
+  .close-inner {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+    padding: clamp(64px, 10vw, 96px) var(--pad-x);
+  }
+  .close .sec-body { padding-left: 0; }
+  .close h2 { font-size: clamp(2.25rem, 9vw, 3.5rem); }
 
-  .hero .headline { font-size: clamp(2.5rem, 10vw, 4rem); }
+  /* Footer — stack into one column, left-align everything */
+  .foot-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .foot nav { padding-left: 0; }
+  .foot .legal { text-align: left; }
+
+  /* Hero on mobile — flex column so we can CSS-order the mock between
+     the lede paragraph and the CTAs without moving it in the DOM
+     (which would break the desktop float-wrap).                       */
+  .hero .sec-body {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero .headline { order: 1; font-size: clamp(2.25rem, 9vw, 3.5rem); }
+  .hero .sub { order: 2; }
+  .hero-mock {
+    order: 3;
+    float: none;
+    width: min(100%, 340px);
+    margin: clamp(20px, 4vw, 32px) 0;
+  }
+  .hero .cta-row {
+    order: 4;
+    justify-content: center;
+  }
   .hero .cta-row .btn-secondary { display: none; }
+  .hero .promise {
+    order: 5;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero .promise .dot { display: none; }
+  .promise-break { display: inline; }
+  .hero-strip { order: 6; }
 
   .hero-strip { grid-template-columns: repeat(2, 1fr); }
   .hero-strip .stat:nth-child(2) { border-right: 0; }
@@ -1151,18 +1489,70 @@
     margin-top: 24px;
   }
 
+  /* Problem — 3 points stack; roman numeral sits inline with the heading */
   .problem-points { grid-template-columns: 1fr; }
   .problem-points .pt {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 14px;
     border-right: 0;
     border-bottom: var(--rule-subtle);
     padding-bottom: 28px;
     padding-right: 0;
   }
   .problem-points .pt:last-child { border-bottom: 0; }
+  .problem-points .pt .n {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 0.4em;
+    margin: 0;
+  }
+  .problem-points .pt h4 {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+  }
+  .problem-points .pt p {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 10px;
+  }
 
-  .outcomes .row { grid-template-columns: 1fr; gap: 10px; }
-  .outcomes .row p { max-width: none; }
+  /* Outcomes — body copy aligns with heading's text column on mobile;
+     font size matches Problem's body so the two sections read as one. */
+  .outcomes .row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .outcomes .row p {
+    max-width: none;
+    padding-left: 34px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
 
+  /* Proof — caseline wraps left-aligned; before/after stack vertically
+     so neither image gets crushed                                     */
+  .proof .proof-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .proof .caseline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .proof .caseline .delta {
+    margin-left: 0;
+  }
+  .proof .split {
+    grid-template-columns: 1fr;
+  }
+  .proof .split > .half:first-child {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
   .proof .meta-row { grid-template-columns: 1fr; }
   .proof .meta-row .cell {
     border-right: 0;
@@ -1172,24 +1562,41 @@
   }
   .proof .meta-row .cell:last-child { border-bottom: 0; }
 
+  /* Process — condense step grid to 2-col */
   .process .step { grid-template-columns: 48px 1fr; }
   .process .step p { grid-column: 2; }
 
+  /* Comparison — cards stack */
   .compare .grid { grid-template-columns: 1fr; }
 
+  /* Reassurance — items stack; roman numeral sits inline with heading */
   .reassure .grid { grid-template-columns: 1fr; }
   .reassure .item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 14px;
     border-right: 0;
     padding-left: 0 !important;
     padding-right: 0;
     border-bottom: var(--rule-subtle);
   }
   .reassure .item:last-child { border-bottom: 0; }
-
-  .close h2 { font-size: clamp(2.25rem, 9vw, 3.5rem); }
-
-  .foot-inner { grid-template-columns: 1fr; gap: 32px; }
-  .foot-inner::before { display: none; }
-  .foot nav { padding-left: 0; }
-  .foot .legal { text-align: left; }
+  .reassure .item .k {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 0.4em;
+    margin: 0;
+  }
+  .reassure .item h4 {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+  }
+  .reassure .item p {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
 }

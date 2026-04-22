@@ -1,9 +1,26 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePreviewModal } from "./preview-modal";
-import { images } from "@/lib/content";
+
+function BrandMark() {
+  return (
+    <span className="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect width="64" height="64" rx="12" />
+        <text
+          x="32"
+          y="44"
+          textAnchor="middle"
+          fontSize="30"
+          letterSpacing="-0.04em"
+        >
+          Nu
+        </text>
+      </svg>
+    </span>
+  );
+}
 
 export function Header() {
   const { open } = usePreviewModal();
@@ -32,7 +49,7 @@ export function Header() {
           }}
         >
           <Link href="/" className="brand" aria-label="NuSite home">
-            <Image src={images.logoMark} alt="" width={22} height={22} priority />
+            <BrandMark />
             <span>NuSite</span>
           </Link>
           <nav aria-label="Main">

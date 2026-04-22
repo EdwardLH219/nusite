@@ -6,19 +6,19 @@ export function Close() {
   const { open } = usePreviewModal();
 
   return (
-    <section className="close" id="preview">
+    <section className="close" id="preview" data-hue="yellow">
       <div className="close-inner">
         <div className="gutter">
           <div className="eyebrow">
             <span className="num">08 / 08</span>
-            <span className="name">Close</span>
+            <span className="name">Get started</span>
           </div>
         </div>
         <div className="sec-body">
           <h2>
             Send us your URL.
             <br />
-            See the replacement in 24 hours.
+            See the <span className="sun">replacement</span> in 24 hours.
           </h2>
           <p className="lede">
             If the preview is good, we go live. If it’s not, you walk away{" "}
