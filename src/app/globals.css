@@ -1495,12 +1495,18 @@
   .hero .cta-row {
     order: 4;
     justify-content: center;
+    width: 100%;
+    align-self: stretch;
+    grid-column: unset;
   }
   .hero .cta-row .btn-secondary { display: none; }
   .hero .promise {
     order: 5;
-    justify-content: center;
+    display: block;
     text-align: center;
+    width: 100%;
+    align-self: stretch;
+    grid-column: unset;
   }
   .hero .promise .dot { display: none; }
   .promise-break { display: inline; }
