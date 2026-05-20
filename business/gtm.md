@@ -4,7 +4,7 @@
 
 ## Positioning
 
-**NuSite is the $299, 24-hour website replacement service for independent professional businesses whose current site is quietly losing them referrals.**
+**NuSite is the $299, 24-hour website replacement for independent professional businesses whose current site is quietly losing them referrals.** One flat fee. One studio. One phone call. No retainer.
 
 Anchors:
 - **Flat $299, one-time.** No retainer, no hourly billing, no surprise invoice.
@@ -36,7 +36,7 @@ Same as the product ICP (see Business Overview):
   3. **100%** — You own the code, the copy, the domain. All of it.
   4. **One** — Phone call. We do the rest while you run the business.
 
-(Strictly four stats in the hero, not three — the messaging hierarchy treats them as a single proof unit.)
+(Four stats in the hero, not three. The messaging hierarchy treats them as a single proof unit — adding or removing a stat is a positioning change, not a copy tweak.)
 
 ## Page-level intents
 

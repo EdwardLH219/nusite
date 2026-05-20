@@ -123,7 +123,7 @@ No other top-level routes. All section navigation is anchor links within `/`.
 - **Icons:** `lucide-react`
 - **Language:** TypeScript (strict)
 - **Linting:** ESLint with `eslint-config-next`
-- **Tests:** none currently configured — build + lint must pass
+- **Tests:** none currently configured — `npm run build` and `npm run lint` must pass before any PR
 
 **Hosting / deployment — TBD.** Vercel is the default for Next.js App Router and the path of least resistance; alternatives (Cloudflare Pages, Netlify) are viable but no decision is logged. Tracked in Open questions.
 
@@ -182,7 +182,7 @@ src/
 
 ## Open questions
 
-- [ ] **Where does the preview form actually submit to?** `submitPreviewRequest` is a stub. Pick a destination (email-via-transactional-API, CRM, or internal inbox) and wire it. Blocks any paid traffic.
+- [ ] **Where does the preview form actually submit to?** `submitPreviewRequest` in `src/components/preview-modal.tsx` is a `console.log` stub that resolves after a 1.2s fake delay. Pick a destination (transactional email API, CRM, or internal inbox) and wire it. Blocks any paid traffic.
 - [ ] **Which analytics tool?** Plausible vs PostHog vs GA4. Decide before instrumenting FR-2.
 - [ ] **Which host?** Vercel is the default-of-least-resistance for Next.js 16 App Router; confirm or pick an alternative.
 - [ ] **Canonical domain.** Site metadata declares `nusite.com`; contact email is `studio@nusite.ai`. One should win. Update `metadataBase` and footer email together.

@@ -8,7 +8,7 @@ The **marketing / product website** for the NuSite product. Its job is to promot
 
 This is **not** the NuSite product itself (the website-generator); it's the site that markets it.
 
-The site embodies the offer in a single sentence: *"Send us your URL. See the replacement in 24 hours. Pay only if it feels right."*
+The site embodies the offer in one sentence: *"Send us your URL. See the replacement in 24 hours. Pay only if it feels right."* Every section on the page points at that same conversion.
 
 ## Audience
 
@@ -72,7 +72,7 @@ When the product changes (e.g. price moves off $299, turnaround target changes),
 |---|---|---|
 | **Preview form submits go nowhere.** The current modal calls `submitPreviewRequest` which is a `console.log` stub — leads are being lost in development. | High (until fixed) | Wire the form to a real destination (email, CRM, or a NuSite-internal inbox) before any paid traffic. Tracked as an open question in the PRD. |
 | **No analytics instrumented.** We can't measure any of the success metrics above today. | High (until fixed) | Pick an analytics tool and instrument the funnel events. Tracked as an open question in the PRD. |
-| **Single-channel dependence.** If we lean too heavily on one acquisition channel and it dries up, lead flow stops. | Medium | Diversify intentionally as volume grows; the site must work cold for at least outbound, referral, and organic. |
+| **Single-channel dependence.** If we lean too heavily on one acquisition channel and it dries up, lead flow stops. | Medium | Diversify intentionally as volume grows. The home page must work cold for outbound, referrals, and organic — verified by tracking preview-request rate per channel once analytics is wired. |
 | **Content drift from product reality.** If price, turnaround, or process change in the product but not on the site, trust breaks. | Medium | Treat business artefacts (this folder) as the single source of truth and have Cowork update the site copy from these files at each gate. |
 | **Domain inconsistency.** Site metadata declares `nusite.com` but the contact email is `studio@nusite.ai`. Visitors notice. | Low | Decide one canonical domain and align metadata + email. Tracked in the PRD. |
 
