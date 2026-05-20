@@ -1,0 +1,16 @@
+# Speckit extension hooks for the StarBeta / NovaStar workflow.
+#
+# Hook keys follow the pattern <before|after>_<speckit-command>. A hook
+# rendered with optional: true prompts the user at the end of the parent
+# command; optional: false auto-executes without confirmation.
+#
+# Command names use dots; speckit renders them as slash commands by
+# replacing dots with hyphens (e.g. speckit.tasks-to-linear → /speckit-tasks-to-linear).
+
+hooks:
+  after_tasks:
+    - extension: starbeta-novastar
+      command: speckit.tasks-to-linear
+      description: "Push the parent + child tickets to Linear so agents can pick them up from the StarBeta board."
+      optional: true
+      prompt: "tasks.md is ready. Push to Linear so agents can work the tickets from there?"
